@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools==84.2.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cripto-market-data"
+version = "0.1.0"
+description = "Public Binance Spot data, offline fixtures and atomic local exports"
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = ["cripto-core==0.1.0", "httpx>=0.28,<0.29", "pydantic>=2.12,<3"]
+
+[project.scripts]
+cripto-market-data = "cripto_market_data.entrypoints.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "pytest-cov>=6,<8", "ruff>=0.14,<1", "mypy>=1.18,<2"]
+
+[tool.uv]
+required-version = "==0.12.19"
+
+[tool.uv.sources]
+cripto-core = { path = "../cripto-core/dist/06a-final/cripto_core-0.1.0-py3-none-any.whl" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["cripto_market_data*"]
+namespaces = false
+
+[tool.setuptools.package-data]
+cripto_market_data = ["py.typed"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+extend-exclude = [".venv-standalone-06b", "reports"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--strict-markers --import-mode=importlib --basetemp=.pytest-tmp"

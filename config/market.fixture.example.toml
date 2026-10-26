@@ -1,0 +1,5 @@
+mode="PAPER"
+[market]
+source="fixture"
+fixture_file="config/fixtures/market-sample.json"
+data_dir="data/fixture-example"
